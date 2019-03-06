@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Asista Demo</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -41,5 +43,65 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>Asista</key>
+    <dict>
+        <key>appId</key>
+        <string>app-id</string>
+        <key>clientSecret</key>
+        <string>password123</string>
+        <key>tenantUrl</key>
+        <string>https://dev.asista.in</string>
+    </dict>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>assist.asista.in</key>
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+                <key>NSAllowsLocalNetworking</key>
+                <true/>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSExceptionRequiresForwardSecrecy</key>
+                <false/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                <string>TLSv1.1</string>
+            </dict>
+            <key>dev.asista.in</key>
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+                <key>NSAllowsLocalNetworking</key>
+                <true/>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSExceptionRequiresForwardSecrecy</key>
+                <false/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                <string>TLSv1.1</string>
+            </dict>
+            <key>m1.asista.in</key>
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+                <key>NSAllowsLocalNetworking</key>
+                <true/>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSExceptionRequiresForwardSecrecy</key>
+                <false/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                <string>TLSv1.1</string>
+            </dict>
+        </dict>
+    </dict>
 </dict>
 </plist>

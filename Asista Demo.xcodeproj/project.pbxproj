@@ -7,21 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0DA9FA0D21A354447FF2DFC /* Pods_Asista_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329BED72617AC9834158C8D1 /* Pods_Asista_Demo.framework */; };
 		DA7BEEE322290886003F7DB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BEEE222290886003F7DB4 /* AppDelegate.swift */; };
-		DA7BEEE522290886003F7DB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BEEE422290886003F7DB4 /* ViewController.swift */; };
 		DA7BEEE822290886003F7DB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7BEEE622290886003F7DB4 /* Main.storyboard */; };
 		DA7BEEEA2229088A003F7DB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7BEEE92229088A003F7DB4 /* Assets.xcassets */; };
 		DA7BEEED2229088A003F7DB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7BEEEB2229088A003F7DB4 /* LaunchScreen.storyboard */; };
+		DA7BEEF722290C42003F7DB4 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BEEF422290C42003F7DB4 /* MenuVC.swift */; };
+		DA7BEEF822290C42003F7DB4 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BEEF522290C42003F7DB4 /* RegisterVC.swift */; };
+		DA7BEEF922290C42003F7DB4 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BEEF622290C42003F7DB4 /* LoginVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		329BED72617AC9834158C8D1 /* Pods_Asista_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Asista_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5815E3667A8CC02346A4DEA5 /* Pods-Asista Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Asista Demo.debug.xcconfig"; path = "Target Support Files/Pods-Asista Demo/Pods-Asista Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		BFE8D13F994A8E3080E3BE35 /* Pods-Asista Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Asista Demo.release.xcconfig"; path = "Target Support Files/Pods-Asista Demo/Pods-Asista Demo.release.xcconfig"; sourceTree = "<group>"; };
 		DA7BEEDF22290886003F7DB4 /* Asista Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Asista Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7BEEE222290886003F7DB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DA7BEEE422290886003F7DB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DA7BEEE722290886003F7DB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA7BEEE92229088A003F7DB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA7BEEEC2229088A003F7DB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA7BEEEE2229088A003F7DB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA7BEEF422290C42003F7DB4 /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
+		DA7BEEF522290C42003F7DB4 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		DA7BEEF622290C42003F7DB4 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0DA9FA0D21A354447FF2DFC /* Pods_Asista_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		87CD484726CBFE617529F40D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				329BED72617AC9834158C8D1 /* Pods_Asista_Demo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DA7BEED622290886003F7DB4 = {
 			isa = PBXGroup;
 			children = (
 				DA7BEEE122290886003F7DB4 /* Asista Demo */,
 				DA7BEEE022290886003F7DB4 /* Products */,
+				F230588B602EA5E233890882 /* Pods */,
+				87CD484726CBFE617529F40D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +74,24 @@
 			isa = PBXGroup;
 			children = (
 				DA7BEEE222290886003F7DB4 /* AppDelegate.swift */,
-				DA7BEEE422290886003F7DB4 /* ViewController.swift */,
 				DA7BEEE622290886003F7DB4 /* Main.storyboard */,
 				DA7BEEE92229088A003F7DB4 /* Assets.xcassets */,
 				DA7BEEEB2229088A003F7DB4 /* LaunchScreen.storyboard */,
+				DA7BEEF622290C42003F7DB4 /* LoginVC.swift */,
+				DA7BEEF422290C42003F7DB4 /* MenuVC.swift */,
+				DA7BEEF522290C42003F7DB4 /* RegisterVC.swift */,
 				DA7BEEEE2229088A003F7DB4 /* Info.plist */,
 			);
 			path = "Asista Demo";
+			sourceTree = "<group>";
+		};
+		F230588B602EA5E233890882 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5815E3667A8CC02346A4DEA5 /* Pods-Asista Demo.debug.xcconfig */,
+				BFE8D13F994A8E3080E3BE35 /* Pods-Asista Demo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA7BEEF12229088A003F7DB4 /* Build configuration list for PBXNativeTarget "Asista Demo" */;
 			buildPhases = (
+				34881A1832DFA786B305DA82 /* [CP] Check Pods Manifest.lock */,
 				DA7BEEDB22290886003F7DB4 /* Sources */,
 				DA7BEEDC22290886003F7DB4 /* Frameworks */,
 				DA7BEEDD22290886003F7DB4 /* Resources */,
+				76CB49C2450FDDD0128B7925 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,13 +162,72 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		34881A1832DFA786B305DA82 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Asista Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76CB49C2450FDDD0128B7925 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Asista Demo/Pods-Asista Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AsistaCore/AsistaCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AsistaUI/AsistaUI.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
+				"${BUILT_PRODUCTS_DIR}/IHProgressHUD/IHProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsistaCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsistaUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IHProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Asista Demo/Pods-Asista Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DA7BEEDB22290886003F7DB4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA7BEEE522290886003F7DB4 /* ViewController.swift in Sources */,
+				DA7BEEF822290C42003F7DB4 /* RegisterVC.swift in Sources */,
 				DA7BEEE322290886003F7DB4 /* AppDelegate.swift in Sources */,
+				DA7BEEF922290C42003F7DB4 /* LoginVC.swift in Sources */,
+				DA7BEEF722290C42003F7DB4 /* MenuVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,16 +371,17 @@
 		};
 		DA7BEEF22229088A003F7DB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5815E3667A8CC02346A4DEA5 /* Pods-Asista Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C925BGRW97;
+				DEVELOPMENT_TEAM = A5S9KM8KVS;
 				INFOPLIST_FILE = "Asista Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cherrylabs.Asista-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.asista.demo.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -298,16 +390,17 @@
 		};
 		DA7BEEF32229088A003F7DB4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BFE8D13F994A8E3080E3BE35 /* Pods-Asista Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C925BGRW97;
+				DEVELOPMENT_TEAM = A5S9KM8KVS;
 				INFOPLIST_FILE = "Asista Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cherrylabs.Asista-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.asista.demo.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
