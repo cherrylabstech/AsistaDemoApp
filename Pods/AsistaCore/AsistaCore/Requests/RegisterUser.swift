@@ -34,8 +34,8 @@ public final class RegisterUser: RequestModel {
     
     var headerField: [String: String] {
         var header: [String: Any] = [:]
-        header.appendingQueryParameter(key: "X-App-ID", value: appKey )
-        header.appendingQueryParameter(key: "X-App-Secret", value: appSecret)
+        header.appendingQueryParameter(key: "X-App-ID", value: AsistaCore.shared.appKey )
+        header.appendingQueryParameter(key: "X-App-Secret", value: AsistaCore.shared.appSecret)
         header.appendingQueryParameter(key: "Content-Type", value: "application/json")
         return header as! [String : String]
     }
@@ -56,10 +56,6 @@ public final class RegisterUser: RequestModel {
         return .post
     }    
     
-    let appKey: String
-    
-    let appSecret: String
-    
     public var firstName: String?
     
     public var lastName: String?
@@ -70,10 +66,7 @@ public final class RegisterUser: RequestModel {
     
     public var phone: String?
     
-    public init(appKey: String, appSecret: String) {
-        self.appKey = appKey
-        self.appSecret = appSecret
-        
+    public init() {
         self.firstName = nil
         self.lastName = nil
         self.email = nil

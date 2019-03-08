@@ -49,7 +49,6 @@ final class RequestPasswordReset: RequestModel {
         return jsonData
     }
     
-    
     private let email: String
     
     init(email: String) {

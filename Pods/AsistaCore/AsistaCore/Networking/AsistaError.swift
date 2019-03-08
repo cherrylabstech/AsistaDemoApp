@@ -38,7 +38,7 @@ public enum AsistaError: Error {
     case changePassword(Int)
     case resetPassword(Int)
     
-    case unexpectedResponse(Any?)
+    case unexpectedResponse(Any)
     case invalidAuthCredentials(Any)
     case invalidData(Any)
     case nullDataFound(Any)

@@ -48,8 +48,8 @@ final class LoginUser: RequestModel {
     var httpBody: Data? {
         var body: [String: Any] = [:]
         body.appendingQueryParameter(key: "userName", value: userId)
-        body.appendingQueryParameter(key: "appKey", value: appKey)
-        body.appendingQueryParameter(key: "appSecret", value: appSecret)
+        body.appendingQueryParameter(key: "appKey", value: AsistaCore.shared.appKey)
+        body.appendingQueryParameter(key: "appSecret", value: AsistaCore.shared.appSecret)
         let jsonData = try? JSONSerialization.data(withJSONObject: body, options: [.prettyPrinted])
         return jsonData
     }
@@ -60,16 +60,10 @@ final class LoginUser: RequestModel {
     
     private let domain: String
     
-    private let appKey: String
-    
-    private let appSecret: String
-    
     private let userId: String
     
-    init(appKey: String, appSecret: String, userId: String) {
+    init(userId: String) {
         self.domain = AsistaCore.shared.tenantURL.deletePrefix("https://")
-        self.appKey = appKey
-        self.appSecret = appSecret
         self.userId = userId
     }
 }

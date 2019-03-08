@@ -84,11 +84,19 @@ class Networking {
                 case 472:
                     completionHandler(.failed(.resetPassword(statusCode)))
                 default:
-                    if let result = response.result.value {
-                        completionHandler(.failed(.unexpectedResponse(result)))
+                    if let result = response.result.value as? [String: String] {
+                        if let message = result["message"] {
+                            completionHandler(.failed(.unexpectedResponse(message)))
+                        }
+                        else if let response = result["response"] {
+                            completionHandler(.failed(.unexpectedResponse(response)))
+                        }
+                        else {
+                            completionHandler(.failed(.unexpectedResponse(result)))
+                        }
                     }
                     else {
-                        completionHandler(.failed(.unexpectedResponse(response.result.value as Any)))
+                        completionHandler(.failed(.unexpectedResponse("Unexpected Response")))
                     }
                 }
         }

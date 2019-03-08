@@ -11,12 +11,6 @@ import AsistaCore
 
 class LoginVC: UIViewController {
 
-    /// Unique ID provided for Asista SDK login
-    let appKey = "P4rmDf04Mpa9A0QlEFN5yg"
-    
-    /// Unique key provided for Asista SDK login
-    let appSecret = "RNxvszjmTJ7vrrPIyaFnyiWSAnIFHXunoKs8CO6g"
-
     @IBOutlet weak var userIdText: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +28,7 @@ class LoginVC: UIViewController {
         ///   - appKey: Unique ID provided for Asista SDK login
         ///   - appSecret: Unique key provided for Asista SDK login
         ///   - userId: UserId of registered user.
-        try! AsistaCore.getInstance().getAuthService().authenticate(appKey: appKey, appSecret: appSecret, userId: userId) { (result) in
+        try! AsistaCore.getInstance().getAuthService().authenticate(userId: userId) { (result) in
             switch result {
             case .success( _):
                 self.userIdText.text = ""

@@ -77,17 +77,7 @@ public class AsistaApiClient {
                 AsistaCore.attachmentTypes = attachment.fileType
             }
         }
-        
-        /// Retrieves the `profile` content of the logged in user.
-        ///
-        UserProfileService().fetchProfile { (result) in
-            if case .success(let profile) = result {
-                /// Storing `timeZoneOffset` and userId` in App constants.
-                AsistaCore.timeZoneOffset = Double(profile.timezoneOfset)
-                AsistaCore.userId = profile.userId
-            }
-        }
-        
+       
         /// Retrieves the theme content of the selected tenant.
         ///
         UserProfileService().fetchTheme { (result) in

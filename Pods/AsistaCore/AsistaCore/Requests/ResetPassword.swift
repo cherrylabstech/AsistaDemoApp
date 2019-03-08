@@ -55,7 +55,6 @@ final class ResetPassword: RequestModel {
         return jsonData
     }
     
-    
     private let key: String
     
     private let newPass: String

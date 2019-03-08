@@ -10,12 +10,6 @@ import UIKit
 import AsistaCore
 
 class RegisterVC: UIViewController {
-
-    /// Unique ID provided for Asista SDK login
-    let appKey = "P4rmDf04Mpa9A0QlEFN5yg"
-    
-    /// Unique key provided for Asista SDK login
-    let appSecret = "RNxvszjmTJ7vrrPIyaFnyiWSAnIFHXunoKs8CO6g"
     
     @IBOutlet weak var firstNameText: UITextField!
     @IBOutlet weak var lastNameText: UITextField!
@@ -38,7 +32,7 @@ class RegisterVC: UIViewController {
                 return
         }
         
-        let user = RegisterUser(appKey: appKey, appSecret: appSecret)
+        let user = RegisterUser()
         user.firstName = firstName
         user.lastName = lastNameText.text
         user.email = emailText.text

@@ -39,11 +39,11 @@ public class AsistaCore {
     /// The current tenant that API is connected to.
     var tenantURL: String
     
-    /// Secret key used to connect Asista SDK with Application
-    var clientSecret: String
-    
     /// App unique ID
-    var appId: String
+    var appKey: String
+    
+    /// Secret key used to connect Asista SDK with Application
+    var appSecret: String
     
     /// Password Regex to validate user provided password
     public static var passwordRegx: String = ""
@@ -64,38 +64,37 @@ public class AsistaCore {
     public static var attachmentTypes: [String] = []
     
     // MARK: Initialization
-   
+       
     /// Creates a `AsistaCore` instance using the credentials.
     ///
     /// - Parameters:
-    ///   - accessToken: Token for accessing Asista API methods
     ///   - tenantUrl: The current tenant that API is connected to.
-    ///   - clientSecret: Secret key used to connect Asista SDK with Application
-    ///   - appId: App unique ID
-    public init(tenantUrl: String? = nil, clientSecret: String? = nil, appId: String? = nil) {
+    ///   - appKey: App unique ID
+    ///   - appSecret: Secret key used to connect Asista SDK with Application
+    public init(tenantUrl: String? = nil, appKey: String? = nil, appSecret: String? = nil) {
         self.accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         self.refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
         
-        if let url = tenantUrl, let secret = clientSecret, let appId = appId {
+        if let url = tenantUrl, let key = appKey, let secret = appSecret {
             self.tenantURL = url
-            self.clientSecret = secret
-            self.appId = appId
+            self.appKey = key
+            self.appSecret = secret
         }
         else if let asista = Bundle.main.infoDictionary?["Asista"] as? [String: String] {
             self.tenantURL = asista["tenantUrl"] ?? ""
-            self.clientSecret = asista["clientSecret"] ?? ""
-            self.appId = asista["appId"] ?? ""
+            self.appKey = asista["appKey"] ?? ""
+            self.appSecret = asista["appSecret"] ?? ""
         }
         else {
             self.tenantURL = ""
-            self.clientSecret = ""
-            self.appId = ""
+            self.appKey = ""
+            self.appSecret = ""
         }
     }
     
     /// Returns instance of `AsistaApiClient` class
     public static func getInstance() throws -> AsistaApiClient {
-        if AsistaCore.shared.tenantURL.isEmpty || AsistaCore.shared.clientSecret.isEmpty || AsistaCore.shared.appId.isEmpty {
+        if AsistaCore.shared.tenantURL.isEmpty || AsistaCore.shared.appKey.isEmpty || AsistaCore.shared.appSecret.isEmpty {
             throw AsistaError.invalidAuthCredentials("Asista Core initialization failed. Check your init variables")
         }
         return AsistaApiClient()

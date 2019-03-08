@@ -26,13 +26,14 @@ import Foundation
 
 public class AuthService {
    
+    
     /// Performs user authentication by `appKey`, `appSecret` and `userId`
     ///
     /// - Parameters:
-    ///   - parameters: Dictionary value representing the  login credentials.
+    ///   - userId: `id` of user
     ///   - completionHandler: The closure called when the `ResultModel` encoding is complete.
-    public func authenticate(appKey: String, appSecret: String, userId: String, completionHandler: @escaping (ResultModel<Bool, AsistaError>) -> Void) {
-        let request = LoginUser(appKey: appKey, appSecret: appSecret, userId: userId)
+    public func authenticate(userId: String, completionHandler: @escaping (ResultModel<Bool, AsistaError>) -> Void) {
+        let request = LoginUser(userId: userId)
         
         Networking.shared.performRequest(request) { (response) in
             switch response {
@@ -41,6 +42,16 @@ public class AuthService {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(LoginUser.Response.self, from: response.data!)
                     AuthService.saveTokens(with: result)
+                    
+                    /// Retrieves the `profile` content of the logged in user.
+                    ///
+                    UserProfileService().fetchProfile { (result) in
+                        if case .success(let profile) = result {
+                            /// Storing `timeZoneOffset` and userId` in App constants.
+                            AsistaCore.timeZoneOffset = Double(profile.timezoneOfset)
+                            AsistaCore.userId = profile.userId
+                        }
+                    }
                     completionHandler(.success(true))
                     
                 } catch let error {
@@ -51,6 +62,7 @@ public class AuthService {
             }
         }
     }
+    
     
     /// Performs user registration from client App
     ///
@@ -69,6 +81,7 @@ public class AuthService {
             }
         }
     }
+    
     
     /// Performs `AccessToken` refresh from server
     ///
@@ -94,6 +107,7 @@ public class AuthService {
         }
     }
     
+    
     /// Requests a password reset with the Asista server
     ///
     /// - Parameters:
@@ -118,8 +132,6 @@ public class AuthService {
             }
         }
     }
-    
-    
     
     
     /// Performs password change for logined users
