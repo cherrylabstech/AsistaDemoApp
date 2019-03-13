@@ -68,7 +68,7 @@ public class TicketService {
     ///   - from: Range starting from
     ///   - to: Range ending to
     ///   - completionHandler: The closure called when the `ResultModel` encoding is complete.
-    public func fetchTicketList(from: Int? = 0, to: Int? = 20, completionHandler: @escaping (ResultModel<TicketList, AsistaError>) -> Void) {
+    public func fetchUserTickets(from: Int? = 0, to: Int? = 20, completionHandler: @escaping (ResultModel<TicketList, AsistaError>) -> Void) {
         let request = GetTicketList(from: from!, to: to!)
         
         Networking.shared.performRequest(request) { (response) in
@@ -229,7 +229,7 @@ public class TicketService {
     /// - Parameters:
     ///   - parameters: Dictionary value contains the data of a comment
     ///   - completionHandler: The closure called when the `ResultModel` encoding is complete.
-    public func commentTicket(with parameters: Dictionary<String, Any>, completionHandler: @escaping (ResultModel<Bool, AsistaError>) -> Void) {
+    public func addComment(with parameters: Dictionary<String, Any>, completionHandler: @escaping (ResultModel<Bool, AsistaError>) -> Void) {
         let request = CommentTicket(parameters: parameters)
         
         Networking.shared.performRequest(request) { (response) in
@@ -246,12 +246,46 @@ public class TicketService {
     /// Performs file upload with the server.
     ///
     /// - Parameters:
-    ///   - fileParameters: Attributes of file. constains file in `data` format, filename and mime type
+    ///   - url: url path of the file
     ///   - completionHandler: The closure called when the `ResultModel` encoding is complete.
-    public func uploadAttachment(fileParameters: FileParameters, completionHandler: @escaping (ResultModel<UploadResponse, AsistaError>) -> Void) {
+    public func uploadAttachment(url: URL, completionHandler: @escaping (ResultModel<UploadResponse, AsistaError>) -> Void) {
         let request = UploadAttachment()
         
-        Networking.shared.performFileUpload(request, file: fileParameters) { (response) in
+        let data = try! Data(contentsOf: url.absoluteURL)
+        let name = url.lastPathComponent
+        let mimeType = url.path.getMimeType()
+        
+        let file = FileParameters(data: data, name: name, mimeType: mimeType)
+        Networking.shared.performFileUpload(request, file: file) { (response) in
+            switch response {
+            case .success(let response):
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(UploadAttachment.Response.self, from: response.data!)
+                    completionHandler(.success(result))
+                    
+                } catch let error {
+                    completionHandler(.failed(.unexpectedResponse(error)))
+                }
+            case .failed(let error):
+                completionHandler(.failed(error))
+            }
+        }
+    }
+    
+    
+    /// Performs file upload with the server.
+    ///
+    /// - Parameters:
+    ///   - data: Attachment in data format
+    ///   - name: Name of attachment
+    ///   - mimeType: Attachment type
+    ///   - completionHandler: The closure called when the `ResultModel` encoding is complete.
+    public func uploadAttachment(data: Data, name: String, mimeType: String, completionHandler: @escaping (ResultModel<UploadResponse, AsistaError>) -> Void) {
+        let request = UploadAttachment()
+        
+        let file = FileParameters(data: data, name: name, mimeType: mimeType)
+        Networking.shared.performFileUpload(request, file: file) { (response) in
             switch response {
             case .success(let response):
                 do {

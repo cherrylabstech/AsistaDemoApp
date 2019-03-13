@@ -87,6 +87,7 @@ class Networking {
                     if let result = response.result.value as? [String: String] {
                         if let message = result["message"] {
                             completionHandler(.failed(.unexpectedResponse(message)))
+                            return
                         }
                         else if let response = result["response"] {
                             completionHandler(.failed(.unexpectedResponse(response)))
@@ -118,7 +119,7 @@ class Networking {
         let destinationDirectory = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
         AFManager.download(fileUrl, to: destinationDirectory)
             .responseData { (downloadResponse) in
-             
+                
                 switch downloadResponse.result {
                 case .success(_):
                     completionHandler(.success(downloadResponse))
@@ -126,24 +127,23 @@ class Networking {
                 case .failure(let error):
                     if downloadResponse.destinationURL != nil {
                         completionHandler(.success(downloadResponse))
-                        return
                     }
                     else {
                         completionHandler(.failed(.unexpectedResponse(error)))
-                        return
                     }
                 }
         }
     }
     
     
+    
     /// Peforms file upload with the server
     ///
     /// - Parameters:
     ///   - request: The `request` object which conforms to `RequestModel`
-    ///   - file: Attributes of file. constains file in `data` format, filename and its mimetype
+    ///   - filePath: The URL path of the file which uploading
     ///   - completionHandler: The closure called when the `ResultModel` encoding is complete.
-    func performFileUpload<T: RequestModel>(_ request: T, file: FileParameters, completionHandler: @escaping (ResultModel<DataResponse<Data>, AsistaError>) -> Void) {
+    func performFileUpload<T: RequestModel>(_ request: T, file: FileParameters, completionHandler: @escaping (ResultModel<DataResponse<Any>, AsistaError>) -> Void) {
         guard isReachable else {
             completionHandler(.failed(AsistaError.noNetworkReachability))
             return
@@ -155,9 +155,22 @@ class Networking {
             switch encodingResult {
                 
             case .success(let upload, _, _):
-                upload.responseData { response in
-                    completionHandler(.success(response))
-                    return
+                upload.responseJSON { response in
+                    let statusCode = response.response?.statusCode ?? -1
+                    switch statusCode {
+                    case 200...299:
+                        completionHandler(.success(response))
+                    default:
+                        if let result = response.result.value as? [String: String] {
+                            if let message = result["message"] {
+                                completionHandler(.failed(.unexpectedResponse(message)))
+                                return
+                            }
+                            completionHandler(.failed(.unexpectedResponse(result)))
+                            return
+                        }
+                        completionHandler(.failed(.unexpectedResponse(response)))
+                    }
                 }
             case .failure(let error):
                 completionHandler(.failed(.unexpectedResponse(error)))

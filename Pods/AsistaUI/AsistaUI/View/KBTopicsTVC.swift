@@ -96,7 +96,7 @@ class KBTopicsTVC: UITableViewController {
         else {
             let vc = KBArticlesTVC()
             if topicList.indices.contains(indexPath.row) {
-                vc.topic = topicList[indexPath.row]
+                vc.topicId = topicList[indexPath.row].id
                 navigationController?.pushViewController(vc, animated: true)
             }
         }

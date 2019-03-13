@@ -23,6 +23,7 @@
 //
 
 import Foundation
+import MobileCoreServices
 
 public class AttachmentService {
     
@@ -86,4 +87,5 @@ public class AttachmentService {
             }
         }
     }
+    
 }

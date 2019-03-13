@@ -22,7 +22,6 @@
 //  THE SOFTWARE.
 //
 
-
 import UIKit
 import AsistaCore
 import IHProgressHUD
@@ -30,8 +29,9 @@ import IHProgressHUD
 @available(iOS 11.0, *)
 class TicketDetailsVC: UIViewController {
     
+    lazy var cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped(_:)))
     var requestId: Int = 0
-    private var selectedMenu = "Comments"
+    private var selectedMenuIndex = 0
     private var selectedState: String = ""
     private var selectedPriority: String = ""
     private var iconList     = [UIImage]()
@@ -61,6 +61,10 @@ class TicketDetailsVC: UIViewController {
         menuTabbar.selectedItem = menuTabbar.items![0] as UITabBarItem
     }
   
+    @objc func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        closeViewController()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -218,10 +222,11 @@ class TicketDetailsVC: UIViewController {
         tabBar.translatesAutoresizingMaskIntoConstraints = false
         tabBar.backgroundColor = UIColor.groupTableViewBackground
         tabBar.itemPositioning = .centered
-        let commentItem = UITabBarItem(title: "Comments", image: Helper.loadImage(name: "comment"), selectedImage: nil)
-        let stateItem = UITabBarItem(title: "State", image: Helper.loadImage(name: "state"), selectedImage: nil)
-        let priorityItem = UITabBarItem(title: "Priority", image: Helper.loadImage(name: "priority"), selectedImage: nil)
-        let infoItem = UITabBarItem(title: "Info", image: Helper.loadImage(name: "ticketinfo"), selectedImage: nil)
+        
+        let commentItem = UITabBarItem(title: "Comments", image: Helper.loadImage(name: "comment"), tag: 0)
+        let stateItem = UITabBarItem(title: "State", image: Helper.loadImage(name: "state"), tag: 1)
+        let priorityItem = UITabBarItem(title: "Priority", image: Helper.loadImage(name: "priority"), tag: 2)
+        let infoItem = UITabBarItem(title: "Info", image: Helper.loadImage(name: "ticketinfo"), tag: 3)
         
         tabBar.setItems([commentItem, stateItem, priorityItem, infoItem], animated: false)
         return tabBar
@@ -395,8 +400,7 @@ class TicketDetailsVC: UIViewController {
         let ticketIcon = Helper.ticketIcon(condition: payload.source)
         ticketSourceImage.image = Helper.loadImage(name: ticketIcon)
         
-        navigationItem.setTitle(titleText: "Cherrylabs", subtitleText: payload.requestNo)
-        
+        navigationItem.title = payload.requestNo
         subjectLabel.text = payload.subject
         selectedState = payload.userStateLabel
         selectedPriority = payload.priority
@@ -404,16 +408,19 @@ class TicketDetailsVC: UIViewController {
         
         let createTime = Double(payload.createTime) + AsistaCore.timeZoneOffset
         dateLabel.text = "Created : " + createTime.timestampToDate(as: "hh:mm a, dd MMM yy")
+        
+        menuTabbar.items![1].title = ticket.header.state
+        menuTabbar.items![2].title = ticket.header.priority
     }
     
     private func populateComment(with note: [Note]) {
         commentList = note
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            guard self.commentList.count > 0, self.selectedMenu == "Comments" else { return }
-
+            guard self.commentList.count > 0, self.selectedMenuIndex == 0 else { return }
             let indexPath = IndexPath(row: self.commentList.count - 1, section: 0)
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            self.tableView.setNeedsLayout()
             self.tableView.layoutIfNeeded()
         }
     }
@@ -520,17 +527,17 @@ class TicketDetailsVC: UIViewController {
 extension TicketDetailsVC:  UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch selectedMenu {
-        case "Comments":
+        switch selectedMenuIndex {
+        case 0:
             tableView.dataSource(commentList.count, text: "No comments")
             return commentList.count
-        case "State":
+        case 1:
             tableView.dataSource(stateList.count, text: "No states")
             return stateList.count
-        case "Priority":
+        case 2:
             tableView.dataSource(priorityList.count)
             return priorityList.count
-        case "Info":
+        case 3:
             tableView.dataSource(labelText.count)
             return labelText.count
         default:
@@ -539,8 +546,8 @@ extension TicketDetailsVC:  UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch selectedMenu {
-        case "Comments":
+        switch selectedMenuIndex {
+        case 0:
             tableView.separatorStyle = .none
             if commentList.count > 0 && commentList.indices.contains(indexPath.row) {
                 if commentList[indexPath.row].userId == AsistaCore.userId {
@@ -555,7 +562,7 @@ extension TicketDetailsVC:  UITableViewDelegate, UITableViewDataSource {
                 }
             }
             return UITableViewCell()
-        case "State":
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "StateCell", for: indexPath)
             if stateList.count > 0 && stateList.indices.contains(indexPath.row) {
                 let state = stateList[indexPath.row]
@@ -563,7 +570,7 @@ extension TicketDetailsVC:  UITableViewDelegate, UITableViewDataSource {
                 cell.accessoryType = (state.stateType == selectedState) ? .checkmark : .none
             }
             return cell
-        case "Priority":
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PriorityCell", for: indexPath)
             if priorityList.count > 0 && priorityList.indices.contains(indexPath.row) {
                 let priority = priorityList[indexPath.row]
@@ -571,7 +578,7 @@ extension TicketDetailsVC:  UITableViewDelegate, UITableViewDataSource {
                 cell.accessoryType = (priority.priorityState == selectedPriority) ? .checkmark : .none
             }
             return cell
-        case "Info":
+        case 3:
             if ticketAttachmentList.count > 0 && indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: TicketAttachmentCell.identifier, for: indexPath) as! TicketAttachmentCell
                 cell.populate(with: ticketAttachmentList)
@@ -591,8 +598,8 @@ extension TicketDetailsVC:  UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch selectedMenu {
-        case "State":
+        switch selectedMenuIndex {
+        case 1:
             let state = stateList[indexPath.row]
             guard state.stateType != selectedState else { return }
             if state.noteStatus == true {
@@ -624,7 +631,7 @@ extension TicketDetailsVC:  UITableViewDelegate, UITableViewDataSource {
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 UIAlertController.presentAlertWithAction(title: "Alert", message: "Do you want to change the state?", actions: [okAction, cancelAction])
             }
-        case "Priority":
+        case 2:
             let priority = self.priorityList[indexPath.row]
             guard priority.priorityState != selectedPriority else { return }
             let okAction = UIAlertAction(title: "YES", style: .default) { (_) in
@@ -734,7 +741,7 @@ extension TicketDetailsVC: UINavigationControllerDelegate, UIImagePickerControll
                                     "description": "No description",
                                     "requestId": requestId,
                                     "subject": commentText]
-        try! AsistaCore.getInstance().getTicketService().commentTicket(with: commentBody) { (result) in
+        try! AsistaCore.getInstance().getTicketService().addComment(with: commentBody) { (result) in
             switch result {
             case .success( _):
                 self.view.endEditing(true)
@@ -794,6 +801,7 @@ extension TicketDetailsVC: UINavigationControllerDelegate, UIImagePickerControll
     }
 
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+    
         let fileData = try! Data(contentsOf: url.absoluteURL)
         let fileSize = Int(fileData.count)
         let fileExt = url.pathExtension
@@ -806,38 +814,33 @@ extension TicketDetailsVC: UINavigationControllerDelegate, UIImagePickerControll
         }
         
         guard fileSize < AsistaCore.attachmentSize else {
-            UIAlertController.presentAlert(title: "Error", message: "The file you are attaching is bigger than server allows.")
+            UIAlertController.presentAlert(title: "Alert", message: "The file you are attaching is bigger than server allows.")
             return
         }
-        
-        let item = FileParameters(data: fileData, name: "file.\(fileExt)", mimeType: "application/\(fileExt)")
-
         let imgName = Helper.attachmentIcon(for: fileExt)
         let icon = Helper.loadImage(name: imgName)
 
-        uploadAttachment(file: item, fileIcon: icon!)
+        uploadDocument(url: url, fileIcon: icon!)
     }
 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
-            let imageData = image.jpegData(compressionQuality: 0.2)
+            let imageData = image.jpegData(compressionQuality: 0.8)
             let imageSize = Int(imageData!.count)
             
             guard imageSize < AsistaCore.attachmentSize else {
                 UIAlertController.presentAlert(title: "Error", message: "The file you are attaching is bigger than server allows.")
                 return
             }
-            
-            let item = FileParameters(data: imageData!, name: "image.jpg", mimeType: "image/jpg")
-            uploadAttachment(file: item, fileIcon: image)
+            uploadImage(data: imageData!, name: "image.jpg", mimeType: "image/jpg", fileIcon: image)
         }
         self.dismiss(animated: true, completion: nil)
     }
     
-    private func uploadAttachment(file: FileParameters, fileIcon: UIImage) {
+    private func uploadImage(data: Data, name: String, mimeType: String, fileIcon: UIImage) {
         IHProgressHUD.show()
-        try! AsistaCore.getInstance().getTicketService().uploadAttachment(fileParameters: file) { (result) in
+        try! AsistaCore.getInstance().getTicketService().uploadAttachment(data: data, name: name, mimeType: mimeType) { (result) in
             switch result {
             case .success(let response):
                 let attachmentItem = UploadAttachment(id: response.id, url: response.url)
@@ -848,7 +851,26 @@ extension TicketDetailsVC: UINavigationControllerDelegate, UIImagePickerControll
                     self.collectionView.reloadData()
                 }
             case .failed(let error):
-                IHProgressHUD.show()
+                IHProgressHUD.dismiss()
+                UIAlertController.presentAlert(title: "Alert", message: error.localizedDescription)
+            }
+        }
+    }
+    
+    private func uploadDocument(url: URL, fileIcon: UIImage) {
+        IHProgressHUD.show()
+        try! AsistaCore.getInstance().getTicketService().uploadAttachment(url: url) { (result) in
+            switch result {
+            case .success(let response):
+                let attachmentItem = UploadAttachment(id: response.id, url: response.url)
+                self.commentAttachmentList.append(attachmentItem)
+                self.iconList.append(fileIcon)
+                DispatchQueue.main.async {
+                    IHProgressHUD.dismiss()
+                    self.collectionView.reloadData()
+                }
+            case .failed(let error):
+                IHProgressHUD.dismiss()
                 UIAlertController.presentAlert(title: "Alert", message: error.localizedDescription)
             }
         }
@@ -860,43 +882,47 @@ extension TicketDetailsVC: UINavigationControllerDelegate, UIImagePickerControll
 extension TicketDetailsVC: UITabBarDelegate {
 
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        guard let tabItem = tabBar.selectedItem?.title, tabItem != selectedMenu else { return }
-        selectedMenu = tabItem
+        guard let tabItemTag = tabBar.selectedItem?.tag, tabItemTag != selectedMenuIndex else { return }
+        selectedMenuIndex = tabItemTag
         
-        commentInputView.isHidden = (selectedMenu == "Comments") ? false : true
-        tableView.backgroundColor = (selectedMenu == "Comments") ? .init(hex: 0xEFEBE7) : .white
+        commentInputView.isHidden = (selectedMenuIndex == 0) ? false : true
+        tableView.backgroundColor = (selectedMenuIndex == 0) ? .init(hex: 0xEFEBE7) : .white
         
-        if selectedMenu == "Comments" {
+        if selectedMenuIndex == 0 {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.tableView.setNeedsLayout()
+                self.tableView.layoutIfNeeded()
                 guard self.commentList.count > 0 else { return }
                 let indexPath = IndexPath(row: self.commentList.count - 1, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-                self.tableView.layoutIfNeeded()
+                self.tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
             }
         }
-        else if selectedMenu == "State" {
+        else if selectedMenuIndex == 1 {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.tableView.setNeedsLayout()
+                self.tableView.layoutIfNeeded()
                 guard self.stateList.count > 0 else { return }
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                self.tableView.layoutIfNeeded()
             }
         }
-        else if selectedMenu == "Priority" {
+        else if selectedMenuIndex == 2 {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.tableView.setNeedsLayout()
+                self.tableView.layoutIfNeeded()
                 guard self.priorityList.count > 0 else { return }
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                self.tableView.layoutIfNeeded()
             }
         }
-        else if selectedMenu == "Info" {
+        else if selectedMenuIndex == 3 {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.tableView.setNeedsLayout()
+                self.tableView.layoutIfNeeded()
                 guard self.labelText.count > 0 else { return }
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                self.tableView.layoutIfNeeded()
             }
         }
     }

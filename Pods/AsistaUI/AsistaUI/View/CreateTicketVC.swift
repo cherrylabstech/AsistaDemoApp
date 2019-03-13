@@ -439,6 +439,7 @@ class CreateTicketVC: FormViewController {
                     $0.validationOptions = .validatesAlways
                 }
                 }.cellUpdate { cell, row in
+                    row.value = row.value?.trimmingCharacters(in: .whitespacesAndNewlines)
                     if fieldRequired {
                         let fieldCount = row.section?.form?.validate().count
                         self.doneButton.isEnabled = fieldCount == 0 ? true : false
@@ -796,12 +797,10 @@ extension CreateTicketVC: UINavigationControllerDelegate, UIImagePickerControlle
             return
         }
         
-        let fileItem = FileParameters(data: fileData, name: "file.\(fileExt)", mimeType: "application/\(fileExt)")
-        
         let imgName = Helper.attachmentIcon(for: fileExt)
         let icon = Helper.loadImage(name: imgName)
         
-        uploadAttachment(file: fileItem, fileIcon: icon!)
+        uploadAttachment(url: url, fileIcon: icon!)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -814,8 +813,8 @@ extension CreateTicketVC: UINavigationControllerDelegate, UIImagePickerControlle
                 return
             }
             
-            let imageItem = FileParameters(data: imageData!, name: "image.jpg", mimeType: "image/jpg")
-            uploadAttachment(file: imageItem, fileIcon: image)
+            let imageURL = info[.referenceURL] as! URL
+            uploadAttachment(url: imageURL, fileIcon: image)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -826,9 +825,9 @@ extension CreateTicketVC: UINavigationControllerDelegate, UIImagePickerControlle
     /// - Parameters:
     ///   - file: Object of `FileParameters` model which contains `filedata`, `name` and `mimeType`
     ///   - fileIcon: Iconsouce to display in client side.
-    private func uploadAttachment(file: FileParameters, fileIcon: UIImage) {
+    private func uploadAttachment(url: URL, fileIcon: UIImage) {
         IHProgressHUD.show()
-        try! AsistaCore.getInstance().getTicketService().uploadAttachment(fileParameters: file) { (result) in
+        try! AsistaCore.getInstance().getTicketService().uploadAttachment(url: url) { (result) in
             switch result {
             case .success(let response):
                  let attachmentItem = UploadAttachment(id: response.id, url: response.url)

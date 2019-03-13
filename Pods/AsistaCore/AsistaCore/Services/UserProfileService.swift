@@ -179,10 +179,15 @@ public class UserProfileService {
     /// - Parameters:
     ///   - fileParameters: Attributes of image. constains image in `data` format, filename and its mime type
     ///   - completionHandler: The closure called when the `ResultModel` encoding is complete.
-    public func updateProfileImage(fileParameters: FileParameters, completionHandler: @escaping (ResultModel<MsgResponse, AsistaError>) -> Void) {
+    public func updateProfileImage(url: URL, completionHandler: @escaping (ResultModel<MsgResponse, AsistaError>) -> Void) {
         let request = UpdateProfileImage()
         
-        Networking.shared.performFileUpload(request, file: fileParameters) { (response) in
+        let data = try! Data(contentsOf: url.absoluteURL)
+        let name = url.lastPathComponent
+        let mimeType = url.path.getMimeType()
+        let file = FileParameters(data: data, name: name, mimeType: mimeType)
+        
+        Networking.shared.performFileUpload(request, file: file) { (response) in
             switch response {
             case .success(let response):
                 do {

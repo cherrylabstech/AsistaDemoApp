@@ -6,6 +6,7 @@ target 'Asista Demo' do
   use_frameworks!
 
   pod 'AsistaUI'
+  pod 'IHProgressHUD'
   pod 'IQKeyboardManagerSwift'
   # Pods for Asista Demo
 

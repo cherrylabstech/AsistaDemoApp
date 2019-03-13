@@ -38,26 +38,63 @@ public class AsistaUI {
         viewController.present(navigationVC, animated: true, completion: nil)
     }
     
-//    /// Returns the Knowledge base Article view.
-//    ///
-//    /// - Parameter viewController: viewController instance provided from the host application to present the view
-//    public class func showKnowledgeBaseArticle(topic: KBTopic, on viewController: UIViewController) {
-//        let navigationVC = UINavigationController()
-//        let article = KBArticlesTVC()
-//        article.topic = topic
-//        navigationVC.addChild(article)
-//        viewController.present(navigationVC, animated: true, completion: nil)
-//    }
+    /// Returns list of articles in Knowledge.
+    ///
+    /// - Parameter viewController: viewController instance provided from the host application to present the view
+    public class func showArticles(topicId: Int, on viewController: UIViewController) {
+        let navigationVC = UINavigationController()
+        let vc = KBArticlesTVC()
+        vc.topicId = topicId
+        vc.navigationItem.leftBarButtonItem = vc.cancelButton
+        navigationVC.addChild(vc)
+        viewController.present(navigationVC, animated: true, completion: nil)
+    }
+    
+    /// Returns single Knowledge base Article view.
+    ///
+    /// - Parameter viewController: viewController instance provided from the host application to present the view
+    public class func showSingleArticle(articleId: Int, on viewController: UIViewController) {
+        let navigationVC = UINavigationController()
+        let vc = KBContentsVC()
+        vc.articleId = articleId
+        vc.navigationItem.leftBarButtonItem = vc.cancelButton
+        navigationVC.addChild(vc)
+        viewController.present(navigationVC, animated: true, completion: nil)
+    }
+    
+    
+    /// Returns the ticket creation view.
+    ///
+    /// - Parameter viewController: viewController instance provided from the host application to present the view
+    public class func showTicketCreation(on viewController: UIViewController) {
+        let navigationVC = UINavigationController()
+        navigationVC.addChild(CreateTicketVC())
+        viewController.present(navigationVC, animated: true, completion: nil)
+    }
     
     
     /// Returns the Ticket list view.
     ///
     /// - Parameter viewController: viewController instance provided from the host application to present the view
-    public class func showTicketList(on viewController: UIViewController) {
+    public class func showUserTickets(on viewController: UIViewController) {
         let navigationVC = UINavigationController()
         navigationVC.addChild(MyTicketsVC())
         viewController.present(navigationVC, animated: true, completion: nil)
     }
+    
+    
+    /// Returns single Ticket view.
+    ///
+    /// - Parameter viewController: viewController instance provided from the host application to present the view
+    public class func showSingleTicket(requestId: Int, on viewController: UIViewController) {
+        let navigationVC = UINavigationController()
+        let vc = TicketDetailsVC()
+        vc.requestId = requestId
+        vc.navigationItem.leftBarButtonItem = vc.cancelButton
+        navigationVC.addChild(vc)
+        viewController.present(navigationVC, animated: true, completion: nil)
+    }
+    
     
     /// Returns the Asset list view.
     ///
@@ -68,12 +105,16 @@ public class AsistaUI {
         viewController.present(navigationVC, animated: true, completion: nil)
     }
     
-    /// Returns the ticket creation view.
+    /// Returns single Ticket view.
     ///
     /// - Parameter viewController: viewController instance provided from the host application to present the view
-    public class func showCreateTicket(on viewController: UIViewController) {
+    public class func showSingleAsset(assetId: Int, on viewController: UIViewController) {
         let navigationVC = UINavigationController()
-        navigationVC.addChild(CreateTicketVC())
+        let vc = AssetDetailTVC()
+        vc.assetId = assetId
+        vc.navigationItem.leftBarButtonItem = vc.cancelButton
+        navigationVC.addChild(vc)
         viewController.present(navigationVC, animated: true, completion: nil)
     }
+  
 }

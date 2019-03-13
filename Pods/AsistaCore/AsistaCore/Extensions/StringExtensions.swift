@@ -23,6 +23,7 @@
 //
 
 import Foundation
+import MobileCoreServices
 
 extension String {
     ///  Returns the string value of the given string after removing the prefix
@@ -33,5 +34,17 @@ extension String {
     public func deletePrefix(_ prefix: String) -> String {
         guard self.hasPrefix(prefix) else { return self }
         return String(self.dropFirst(prefix.count))
+    }
+    
+    
+    public func getMimeType() -> String {
+        let url = URL(fileURLWithPath: self)
+        
+        if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, url.pathExtension as NSString, nil)?.takeRetainedValue() {
+            if let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() {
+                return mimetype as String
+            }
+        }
+        return "application/octet-stream"
     }
 }

@@ -29,6 +29,8 @@ import AsistaCore
 @available(iOS 9.0, *)
 class AssetDetailTVC: UITableViewController {
     
+    lazy var cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped(_:)))
+    
     var assetId : Int?
     var labelText = [String]()
     var labelValue = [Any]()
@@ -38,6 +40,10 @@ class AssetDetailTVC: UITableViewController {
             tableView.register(SubtitleCell.self, forCellReuseIdentifier: "SubtitleCell")
             fetchAssetDetails(assetId: id)
         }
+    }
+    
+    @objc func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        closeViewController()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,8 +107,8 @@ class AssetDetailTVC: UITableViewController {
             
             switch customField.type {
             case "date":
-                let dateStamp = Double(customField.data)
-                let date = (dateStamp! + AsistaCore.timeZoneOffset) / 1000
+                let dateStamp = Double(customField.data)! / 1000
+                let date = (dateStamp + AsistaCore.timeZoneOffset)
                 self.labelValue.append(date.timestampToDate(as: "dd MMM yyyy"))
             case "textarea":
                 let text = customField.data.withoutHtmlTags

@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (4.8.1)
-  - AsistaCore (0.2.2):
+  - AsistaCore (0.2.4):
     - Alamofire
-  - AsistaUI (0.2.2):
-    - AsistaCore (~> 0.2.2)
+  - AsistaUI (0.2.4):
+    - AsistaCore
     - Eureka
     - IHProgressHUD
   - Eureka (4.3.1)
@@ -12,6 +12,7 @@ PODS:
 
 DEPENDENCIES:
   - AsistaUI
+  - IHProgressHUD
   - IQKeyboardManagerSwift
 
 SPEC REPOS:
@@ -25,12 +26,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
-  AsistaCore: dd72c0c973420e87aa1bfada8408d5cbc2176d7a
-  AsistaUI: 9287bff39d9aa36e261e2f254926e90cf5ff4203
+  AsistaCore: 8ad395f077d40e102eb4c27c64fcda0841b21c73
+  AsistaUI: fbd56f8f5d61e1d81c40cd9cd92689fee0168aba
   Eureka: 28ea296f06710f6745266b71f17862048941a32d
   IHProgressHUD: a01846bfbb581c761c79747c67b08387c3bdfae3
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
 
-PODFILE CHECKSUM: 2ac21f8b525510fba16e7ce4631564fdf63678b3
+PODFILE CHECKSUM: 3bd50239807743f43eda535f1f69fe12621b92d8
 
 COCOAPODS: 1.6.1

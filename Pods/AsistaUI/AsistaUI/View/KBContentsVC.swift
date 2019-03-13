@@ -28,17 +28,22 @@ import Foundation
 
 @available(iOS 9.0, *)
 class KBContentsVC: UIViewController {
-    let webView = UIWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    
+    lazy var cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped(_:)))
+    private lazy var webView = UIWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     
     var articleId : Int?
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(webView)
         if let id = articleId {
-            view.addSubview(webView)
             loadContent(articleId: id)
         }
     }
-    
+
+    @objc func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        closeViewController()
+    }
     
     /// Fetching KB Contents from Asista SDK
     ///
@@ -48,6 +53,7 @@ class KBContentsVC: UIViewController {
             switch result {
             case .success(let kbContent):
                 DispatchQueue.main.async {
+                    self.navigationItem.title = kbContent.subject
                     self.webView.loadHTMLString(kbContent.content, baseURL: nil)
                 }
             case .failed(let e):

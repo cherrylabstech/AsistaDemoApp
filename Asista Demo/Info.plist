@@ -49,15 +49,15 @@
 	<string>To save pictures in the photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To select pictures from photo library.</string>
-	<key>Asista</key>
-	<dict>
-		<key>appKey</key>
-		<string>P4rmDf04Mpa9A0QlEFN5yg</string>
-		<key>appSecret</key>
-		<string>RNxvszjmTJ7vrrPIyaFnyiWSAnIFHXunoKs8CO6g</string>
-		<key>tenantUrl</key>
-		<string>https://dev.asista.in</string>
-	</dict>
+    <key>Asista</key>
+    <dict>
+        <key>appKey</key>
+        <string>P4rmDf04Mpa9A0QlEFN5yg</string>
+        <key>appSecret</key>
+        <string>RNxvszjmTJ7vrrPIyaFnyiWSAnIFHXunoKs8CO6g</string>
+        <key>tenantUrl</key>
+        <string>https://dev.asista.in</string>
+    </dict>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>

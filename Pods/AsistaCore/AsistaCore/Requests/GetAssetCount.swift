@@ -27,8 +27,7 @@ import Foundation
 final class GetAssetCount: RequestModel {
     
     typealias Response = AssetCount
-    
-    
+        
     var path: String {
         return "/servicedesk/api/v1/assets/count"
     }

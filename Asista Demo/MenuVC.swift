@@ -25,11 +25,11 @@ class MenuVC: UIViewController {
     }
     
     @IBAction func myTicketButtonTapped(_ sender: UIButton) {
-        AsistaUI.showTicketList(on: self)
+        AsistaUI.showUserTickets(on: self)
     }
     
     @IBAction func createTicketButtonTapped(_ sender: UIButton) {
-        AsistaUI.showCreateTicket(on: self)
+        AsistaUI.showTicketCreation(on: self)
     }
 }
 

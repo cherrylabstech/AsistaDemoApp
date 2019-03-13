@@ -100,7 +100,7 @@ class MyTicketsVC: UITableViewController {
     ///   - from: Range starting from
     ///   - to: Range ending to
     private func fetchTicketList(from: Int? = 0, to: Int? = 20) {
-        try! AsistaCore.getInstance().getTicketService().fetchTicketList(from: from, to: to) { (result) in
+        try! AsistaCore.getInstance().getTicketService().fetchUserTickets(from: from, to: to) { (result) in
             switch result {
             case .success(let ticket):
                 self.ticketCount = ticket.ticketCount!

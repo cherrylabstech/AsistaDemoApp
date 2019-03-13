@@ -29,16 +29,20 @@ import Foundation
 @available(iOS 9.0, *)
 class KBArticlesTVC: UITableViewController {
     
-    var topic: KBTopic?
+    var topicId: Int?
     var articleList = [Article]()
+    lazy var cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped(_:)))
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let topic = topic {
-            title = topic.topic
+        if let topicId = topicId {
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ArticleCell")
-            loadArticle(topicId: topic.id)
+            loadArticle(topicId: topicId)
         }
+    }
+    
+    @objc func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        closeViewController()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,6 +62,7 @@ class KBArticlesTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = KBContentsVC()
         if articleList.indices.contains(indexPath.row) {
+            vc.navigationItem.backBarButtonItem?.title = "Back"
             vc.articleId = articleList[indexPath.row].id
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -71,6 +76,7 @@ class KBArticlesTVC: UITableViewController {
         try! AsistaCore.getInstance().getKbService().fetchKbArticles(with: topicId) { (result) in
             switch result {
             case .success(let article):
+                self.title = article.topic
                 self.articleList = article.articles
                 DispatchQueue.main.async { self.tableView.reloadData() }
             case .failed(let e):

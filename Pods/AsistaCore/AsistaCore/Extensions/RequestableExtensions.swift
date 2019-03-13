@@ -62,7 +62,7 @@ extension RequestModel {
         
         urlRequest.httpMethod = httpMethod.rawValue
         
-        urlRequest.timeoutInterval = 10
+        urlRequest.timeoutInterval = 60
         
         if disableCache {
             urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
