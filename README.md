@@ -37,7 +37,5 @@ Visit our GitHub [Issues](https://github.com/cherrylabstech/asista-sdk-ios/issue
 
 We :heart: contributions. Found a bug or looking for a new feature? Open an issue and we'll respond as fast as we can. Or, better yet, implement it yourself and open a pull request! We ask that you include tests to show the bug was fixed or the feature works as expected.
 
-Please open any pull requests against the `develop` branch. 
-
 ## License
  Use of this software is subject to important terms and conditions as set forth in the License file
