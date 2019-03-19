@@ -1,6 +1,0 @@
-framework module AsistaUI {
-  umbrella header "AsistaUI-umbrella.h"
-
-  export *
-  module * { export * }
-}

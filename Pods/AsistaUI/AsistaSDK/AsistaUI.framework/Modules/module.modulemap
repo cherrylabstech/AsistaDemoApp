@@ -1,0 +1,4 @@
+framework module AsistaUI {
+  header "AsistaUI-Swift.h"
+  requires objc
+}

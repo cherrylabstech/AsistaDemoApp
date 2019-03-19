@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "33721527EF3AAE6C6FEAEFB976044944"
+               BlueprintIdentifier = "5B0D57480B7C7BDDE17A658269A69AC3"
                BuildableName = "AsistaUI.bundle"
                BlueprintName = "AsistaUI-AsistaUI"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "33721527EF3AAE6C6FEAEFB976044944"
+            BlueprintIdentifier = "5B0D57480B7C7BDDE17A658269A69AC3"
             BuildableName = "AsistaUI.bundle"
             BlueprintName = "AsistaUI-AsistaUI"
             ReferencedContainer = "container:Pods.xcodeproj">

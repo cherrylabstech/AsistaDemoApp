@@ -14,8 +14,8 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4F6336942A6A8259BD6CEAF0A85B115E"
-               BuildableName = "AsistaCore.framework"
+               BlueprintIdentifier = "241208A669002D12B1852A0ACE4CFC3D"
+               BuildableName = "AsistaCore"
                BlueprintName = "AsistaCore"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

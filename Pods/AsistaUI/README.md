@@ -39,10 +39,10 @@ Add the following code snippet, replacing the placeholders within the square bra
 ```
 <key>Asista</key>
 <dict>
-<key>appId</key>
-<string>[appId]</string>
-<key>clientSecret</key>
-<string>[clientSecret]</string>
+<key>appKey</key>
+<string>[appKey]</string>
+<key>appSecret</key>
+<string>[appSecret]</string>
 <key>tenantUrl</key>
 <string>[https://example.asista.com]</string>
 </dict>

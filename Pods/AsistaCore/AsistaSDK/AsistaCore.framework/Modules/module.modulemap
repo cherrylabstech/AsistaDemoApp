@@ -1,0 +1,4 @@
+framework module AsistaCore {
+  header "AsistaCore-Swift.h"
+  requires objc
+}

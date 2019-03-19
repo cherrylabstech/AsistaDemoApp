@@ -154,16 +154,16 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AsistaCore/AsistaCore.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AsistaUI/AsistaUI.framework"
+  install_framework "${PODS_ROOT}/AsistaCore/AsistaSDK/AsistaCore.framework"
+  install_framework "${PODS_ROOT}/AsistaUI/AsistaSDK/AsistaUI.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/IHProgressHUD/IHProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AsistaCore/AsistaCore.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AsistaUI/AsistaUI.framework"
+  install_framework "${PODS_ROOT}/AsistaCore/AsistaSDK/AsistaCore.framework"
+  install_framework "${PODS_ROOT}/AsistaUI/AsistaSDK/AsistaUI.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/IHProgressHUD/IHProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"

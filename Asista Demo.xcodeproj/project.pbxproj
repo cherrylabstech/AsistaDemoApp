@@ -106,6 +106,7 @@
 				DA7BEEDC22290886003F7DB4 /* Frameworks */,
 				DA7BEEDD22290886003F7DB4 /* Resources */,
 				76CB49C2450FDDD0128B7925 /* [CP] Embed Pods Frameworks */,
+				E2F3355DE329408DB3CEED59 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -195,8 +196,8 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Asista Demo/Pods-Asista Demo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AsistaCore/AsistaCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AsistaUI/AsistaUI.framework",
+				"${PODS_ROOT}/AsistaCore/AsistaSDK/AsistaCore.framework",
+				"${PODS_ROOT}/AsistaUI/AsistaSDK/AsistaUI.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/IHProgressHUD/IHProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
@@ -215,6 +216,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Asista Demo/Pods-Asista Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2F3355DE329408DB3CEED59 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Asista Demo/Pods-Asista Demo-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/AsistaUI/AsistaUI.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AsistaUI.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Asista Demo/Pods-Asista Demo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

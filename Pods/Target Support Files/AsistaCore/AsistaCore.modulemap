@@ -1,6 +1,0 @@
-framework module AsistaCore {
-  umbrella header "AsistaCore-umbrella.h"
-
-  export *
-  module * { export * }
-}
